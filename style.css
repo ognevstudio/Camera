@@ -8,8 +8,11 @@ body {
 }
 
 video {
-	border: 1px solid black;
+	max-width: 100%; /* Адаптирует размер видео к ширине родительского контейнера */
+	height: auto; /* Поддерживает пропорции видео */
+	border: 1px solid black; /* Для визуального разделения видео от остального содержимого */
 }
+
 
 button {
 	margin-top: 20px;

@@ -9,19 +9,33 @@ const arrays = {
     array3: ["Lane 1", "Lane 2", "Lane 3"]
 };
 
-// Запуск видеопотока с камеры
 if (navigator.mediaDevices.getUserMedia) {
-    navigator.mediaDevices.getUserMedia({ video: true })
-        .then(function(stream) {
-            video.srcObject = stream;
-        })
-        .catch(function(error) {
-            console.log("Что-то пошло не так с видео потоком:", error);
-        });
+	const constraints = {
+			video: {
+					facingMode: "environment" // Запрос на использование задней камеры
+			}
+	};
+
+	navigator.mediaDevices.getUserMedia(constraints)
+			.then(function(stream) {
+					video.srcObject = stream;
+					startTextRecognition();
+			})
+			.catch(function(error) {
+					console.log("Не удалось получить доступ к камере:", error);
+			});
 }
 
-// Обработчик нажатия на кнопку "Распознать текст"
-document.getElementById('capture').addEventListener('click', () => {
+
+// Функция для запуска распознавания текста
+function startTextRecognition() {
+    setInterval(() => {
+        captureAndRecognizeText();
+    }, 5000); // Захват изображения каждые 5 секунд
+}
+
+// Функция для захвата изображения и распознавания текста
+function captureAndRecognizeText() {
     const canvas = document.createElement('canvas');
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
@@ -29,16 +43,14 @@ document.getElementById('capture').addEventListener('click', () => {
     const imageDataUrl = canvas.toDataURL('image/png');
 
     recognizeTextFromImage(imageDataUrl);
-});
+}
 
 // Функция для распознавания текста из изображения
 function recognizeTextFromImage(imageDataUrl) {
     Tesseract.recognize(
         imageDataUrl,
-        'eng', // Указание на использование английского языка
-        {
-            logger: m => console.log(m) // Логирование процесса
-        }
+        'eng',
+        { logger: m => console.log(m) }
     ).then(({ data: { text } }) => {
         textElement.textContent = text;
         checkTextAgainstArrays(text);
