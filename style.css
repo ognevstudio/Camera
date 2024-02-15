@@ -1,19 +1,39 @@
+.group {
+	color: #007BFF; /* Синий цвет для выделения группы */
+	font-weight: bold;
+	margin-left: 5px;
+}
+
+/* Продолжение предыдущих стилей */
 body {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	height: 100vh;
-	background-color: #f0f0f0;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	margin: 40px;
+	background-color: #f4f4f4;
+	color: #333;
 }
 
-video {
-	max-width: 100%; /* Адаптирует размер видео к ширине родительского контейнера */
-	height: auto; /* Поддерживает пропорции видео */
-	border: 1px solid black; /* Для визуального разделения видео от остального содержимого */
+input[type="text"] {
+	width: 100%;
+	padding: 10px 15px;
+	margin-bottom: 20px;
+	border: 2px solid #ddd;
+	border-radius: 4px;
+	box-sizing: border-box;
+	font-size: 16px;
 }
 
+#results div {
+	background-color: #fff;
+	padding: 10px 15px;
+	border-bottom: 1px solid #eee;
+	animation: fadeIn 0.3s;
+}
 
-button {
-	margin-top: 20px;
+#results div:last-child {
+	border-bottom: none;
+}
+
+@keyframes fadeIn {
+	from { opacity: 0; }
+	to { opacity: 1; }
 }

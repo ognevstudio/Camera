@@ -1,21 +1,15 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Распознавание текста с камеры</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Streets</title>
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <video id="video" width="640" height="480" autoplay></video>
-    <button id="capture">Распознать текст</button>
-    <p>Распознанный текст: <span id="text"></span></p>
-    <p>Название массива: <span id="arrayName"></span></p>
+    <input type="text" id="searchInput" placeholder="Enter street name..." oninput="searchStreet()">
+    <div id="results"></div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/handpose"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgl"></script>
-    <script src="https://cdn.jsdelivr.net/npm/tesseract.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

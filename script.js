@@ -1,75 +1,239 @@
-const video = document.getElementById('video');
-const textElement = document.getElementById('text');
-const arrayNameElement = document.getElementById('arrayName');
+const streets = [
+    { name: "Agave Avenue", group: 3 },
+    { name: "Allen Way", group: 0 },
+    { name: "Almandine Court", group: 1 },
+    { name: "Alta Sierra Way", group: 2 },
+    { name: "Amber Court", group: 1 },
+    { name: "Amber Sun Circle", group: 2 },
+    { name: "Amber Sun Court", group: 2 },
+    { name: "Amur Court", group: 3 },
+    { name: "Amur Lane", group: 3 },
+    { name: "Andromeda Lane", group: 1 },
+    { name: "Angelique Avenue", group: 3 },
+    { name: "Annabar Drive", group: 1 },
+    { name: "Antelope Place", group: 2 },
+    { name: "Aquamarine Court", group: 1 },
+    { name: "Aquamarine Way", group: 1 },
+    { name: "Arabella Drive", group: 3 },
+    { name: "Arroyo Verde Court", group: 2 },
+    { name: "Arroyo Verde Way", group: 2 },
+    { name: "Augustine Court", group: 2 },
+    { name: "Azurite Court", group: 1 },
+    { name: "Backbarn Drive", group: 3 },
+    { name: "Baguette Drive", group: 1 },
+    { name: "Bandit Drive", group: 3 },
+    { name: "Barbwire Place", group: 2 },
+    { name: "Barbwire Way", group: 2 },
+    { name: "Basalt Ridge Circle", group: 2 },
+    { name: "Basalt Ridge Loop", group: 2 },
+    { name: "Beechnut Place", group: 0 },
+    { name: "Betty Street", group: 0 },
+    { name: "Blue Water Circle", group: 3 },
+    { name: "Blue Water Drive", group: 3 },
+    { name: "Blue Water Lane", group: 3 },
+    { name: "Bonita Place", group: 2 },
+    { name: "East st Avenue", group: 1 },
+    { name: "Brush Court", group: 2 },
+    { name: "Brush Road", group: 2 },
+    { name: "Buckskin Lane", group: 9 },
+    { name: "Bulkey Street", group: 0 },
+    { name: "Cache Creek Court", group: 2 },
+    { name: "Cache Creek Point", group: 2 },
+    { name: "Calcite Court", group: 1 },
+    { name: "Hidden Point Boulevard", group: 9 },
+    { name: "Hidden Pointe Boulevard", group: 9 },
+    { name: "Castle Oaks Drive", group: 2 },
+    { name: "Parkcliff Lane", group: 2 },
+    { name: "Chiquita Place", group: 2 },
+    { name: "Cinnabar Drive", group: 1 },
+    { name: "Cinnabar Lane", group: 1 },
+    { name: "Cobalt Court", group: 1 },
+    { name: "Cobalt Way", group: 1 },
+    { name: "Collins Street", group: 0 },
+    { name: "Corner Rock Lane", group: 2 },
+    { name: "Cryolite Place", group: 1 },
+    { name: "Cuprite Court", group: 1 },
+    { name: "Cutters Circle", group: 0 },
+    { name: "Deer Run Trail", group: 0 },
+    { name: "Desert Ridge Circle", group: 2 },
+    { name: "Desert Ridge Place", group: 2 },
+    { name: "Diamond Ridge Circle", group: 1 },
+    { name: "Diamond Ridge Parkways", group: 1 },
+    { name: "Diamond Sky Road", group: 1 },
+    { name: "Doe Run Lane", group: 2 },
+    { name: "Dolomite Lane", group: 1 },
+    { name: "Dolomite Way", group: 1 },
+    { name: "Dove Valley Place", group: 2 },
+    { name: "Drowsy Water Road", group: 0 },
+    { name: "Eagle Claw Place", group: 2 },
+    { name: "Eagle Pointe Lane", group: 2 },
+    { name: "East nd Avenue", group: 2 },
+    { name: "East rd Avenue", group: 3 },
+    { name: "El Charro Point", group: 2 },
+    { name: "El Jebel Loop", group: 3 },
+    { name: "El Nido Way", group: 2 },
+    { name: "Esmeralda Drive", group: 3 },
+    { name: "Evalena Road", group: 0 },
+    { name: "Falling Star Place", group: 2 },
+    { name: "Fire Opal Court", group: 1 },
+    { name: "Fire Opal Lane", group: 1 },
+    { name: "Galactic Place", group: 1 },
+    { name: "Galaxy Circle", group: 1 },
+    { name: "Galaxy Court", group: 1 },
+    { name: "Galaxy Drive", group: 1 },
+    { name: "Geode Court", group: 1 },
+    { name: "Ghost Dance Circle", group: 2 },
+    { name: "Ghost Dance Drive", group: 2 },
+    { name: "Glen Street", group: 0 },
+    { name: "Golden Spur Loop", group: 2 },
+    { name: "Grady Circle", group: 3 },
+    { name: "Grandwater Way", group: 3 },
+    { name: "Granite Way", group: 1 },
+    { name: "Graphite Court", group: 1 },
+    { name: "Greenwater Circle", group: 3 },
+    { name: "Halite Court", group: 1 },
+    { name: "Hawks Eye Court", group: 1 },
+    { name: "Haywagon Lane", group: 3 },
+    { name: "High Mesa Circle", group: 2 },
+    { name: "Home Street", group: 0 },
+    { name: "Hoofbeat Place", group: 3 },
+    { name: "Ironspur Court", group: 0 },
+    { name: "Jade Court", group: 1 },
+    { name: "Kimberly Drive", group: 1 },
+    { name: "Knobcone Drive", group: 0 },
+    { name: "Knotty Pine Way", group: 1 },
+    { name: "Kryptonite Drive", group: 1 },
+    { name: "Kryptonite Lane", group: 1 },
+    { name: "Leilani Drive", group: 3 },
+    { name: "Leilani Lane", group: 3 },
+    { name: "Lemon Gulch Drive", group: 0 },
+    { name: "Lemon Gulch Road", group: 0 },
+    { name: "Lemon Gulch Way", group: 0 },
+    { name: "Littlehouse Lane", group: 3 },
+    { name: "Long Rifle Drive", group: 2 },
+    { name: "Lynch Lane", group: 3 },
+    { name: "Maleta Lane", group: 0 },
+    { name: "Marble Court", group: 1 },
+    { name: "Marble Lane", group: 1 },
+    { name: "McMurdo Circle", group: 2 },
+    { name: "McMurdo Court", group: 2 },
+    { name: "McMurdo Trail", group: 2 },
+    { name: "Metzler Drive", group: 0 },
+    { name: "Metzler Way", group: 0 },
+    { name: "Moonstone Lane", group: 1 },
+    { name: "Neon Way", group: 1 },
+    { name: "Neptunite Place", group: 1 },
+    { name: "North Interstate", group: 25 },
+    { name: "North US Highway", group: 85 },
+    { name: "Oak Grove Court", group: 2 },
+    { name: "Oak Grove Way", group: 2 },
+    { name: "Oasis Drive", group: 3 },
+    { name: "Obsidian Lane", group: 1 },
+    { name: "Orion Way", group: 1 },
+    { name: "Outter Marker Road", group: 9 },
+    { name: "Paint Pony Circle", group: 2 },
+    { name: "Paint Pony Court", group: 2 },
+    { name: "Palmetto Court", group: 3 },
+    { name: "Pathfinder Court", group: 0 },
+    { name: "Pawnee Trail", group: 9 },
+    { name: "Peridot Court", group: 1 },
+    { name: "Peridot Lane", group: 1 },
+    { name: "Picketwire Way", group: 2 },
+    { name: "Pleasant View Drive", group: 2 },
+    { name: "Point Mesa Street", group: 2 },
+    { name: "Purple Sky Way", group: 0 },
+    { name: "Pyrite Court", group: 1 },
+    { name: "Pyrite Way", group: 1 },
+    { name: "Red Bird Court", group: 2 },
+    { name: "Red Bird Trail", group: 2 },
+    { name: "Rhodonite Court", group: 1 },
+    { name: "Rock Mesa Point", group: 0 },
+    { name: "Rock Mesa Way", group: 0 },
+    { name: "Rocky View Place", group: 2 },
+    { name: "Rocky View Point", group: 2 },
+    { name: "Rose Quartz Place", group: 1 },
+    { name: "Round Top Lane", group: 9 },
+    { name: "Russet Sky Court", group: 2 },
+    { name: "Russet Sky Trail", group: 2 },
+    { name: "Sabino Lane", group: 3 },
+    { name: "Sabino Way", group: 3 },
+    { name: "Sand Rose Court", group: 1 },
+    { name: "San Miguel Court", group: 3 },
+    { name: "Sapphire Drive", group: 1 },
+    { name: "Sapphire Pointe Boulevard", group: 1 },
+    { name: "Selenite Court", group: 1 },
+    { name: "Sidewinder Circle", group: 2 },
+    { name: "Sidewinder Loop", group: 2 },
+    { name: "Silver Pine Drive", group: 0 },
+    { name: "Slate Court", group: 1 },
+    { name: "Soapstone Court", group: 1 },
+    { name: "Soapstone Way", group: 1 },
+    { name: "Softwind Point", group: 2 },
+    { name: "Solstice Way", group: 1 },
+    { name: "Spanish Oaks Court", group: 2 },
+    { name: "Spanish Oaks Trail", group: 2 },
+    { name: "Spanish Oaks Way", group: 2 },
+    { name: "Stone Post Drive", group: 2 },
+    { name: "Stony Mesa Court", group: 0 },
+    { name: "Stony Mesa Place", group: 0 },
+    { name: "Sulfur Court", group: 1 },
+    { name: "Sulfur Lane", group: 1 },
+    { name: "Summerhill Drive", group: 2 },
+    { name: "Sunstone Lane", group: 1 },
+    { name: "Tailfeather Way", group: 2 },
+    { name: "Tall Tale Lane", group: 2 },
+    { name: "Terravita Way", group: 2 },
+    { name: "Thundercloud Court", group: 3 },
+    { name: "Titanite Place", group: 1 },
+    { name: "Trail Stone Circle", group: 2 },
+    { name: "Trail Stone Court", group: 2 },
+    { name: "Trail Stone Loop", group: 2 },
+    { name: "Tremolite Court", group: 1 },
+    { name: "Tremolite Drive", group: 1 },
+    { name: "Tremolite Place", group: 1 },
+    { name: "Tulip Tree Place", group: 0 },
+    { name: "Universal Court", group: 1 },
+    { name: "Water Oak Circle", group: 1 },
+    { name: "Water Oak Court", group: 1 },
+    { name: "West Allen Street", group: 0 },
+    { name: "White Fir Terrace", group: 1 },
+    { name: "White Leaf Circle", group: 2 },
+    { name: "White Leaf Place", group: 2 },
+    { name: "White Rose Loop", group: 2 },
+    { name: "Whitewing Lane", group: 2 },
+    { name: "Whitewing Way", group: 2 },
+    { name: "Wild Oak Court", group: 2 },
+    { name: "Wild Oak Drive", group: 2 },
+    { name: "Windmill Road", group: 9 },
+    { name: "Wind Rose Place", group: 2 },
+    { name: "Wingfeather Lane", group: 2 },
+    { name: "Wingfeather Place", group: 2 },
+    { name: "Wingtip Way", group: 0 },
+    { name: "Wrangler Road", group: 9 },
+    { name: "Xenon Lane", group: 1 },
+];
 
-// Названия улиц в массивах
-const arrays = {
-    array1: ["Street 1", "Street 2", "Street 3"],
-    array2: ["Avenue 1", "Avenue 2", "Avenue 3"],
-    array3: ["Lane 1", "Lane 2", "Lane 3"]
-};
 
-if (navigator.mediaDevices.getUserMedia) {
-	const constraints = {
-			video: {
-					facingMode: "environment" // Запрос на использование задней камеры
-			}
-	};
-
-	navigator.mediaDevices.getUserMedia(constraints)
-			.then(function(stream) {
-					video.srcObject = stream;
-					startTextRecognition();
-			})
-			.catch(function(error) {
-					console.log("Не удалось получить доступ к камере:", error);
-			});
+function normalizeInput(input) {
+    // Удаляем лишние пробелы и приводим к нижнему регистру для упрощения поиска
+    return input.trim().toLowerCase();
 }
 
+function searchStreet() {
+    const query = document.getElementById('searchInput').value;
+    const normalizedQuery = normalizeInput(query);
+    const resultsContainer = document.getElementById('results');
+    resultsContainer.innerHTML = ''; // Очищаем предыдущие результаты
 
-// Функция для запуска распознавания текста
-function startTextRecognition() {
-    setInterval(() => {
-        captureAndRecognizeText();
-    }, 5000); // Захват изображения каждые 5 секунд
-}
+    const results = streets.filter(street => normalizeInput(street.name).includes(normalizedQuery));
 
-// Функция для захвата изображения и распознавания текста
-function captureAndRecognizeText() {
-    const canvas = document.createElement('canvas');
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-    const imageDataUrl = canvas.toDataURL('image/png');
-
-    recognizeTextFromImage(imageDataUrl);
-}
-
-// Функция для распознавания текста из изображения
-function recognizeTextFromImage(imageDataUrl) {
-    Tesseract.recognize(
-        imageDataUrl,
-        'eng',
-        { logger: m => console.log(m) }
-    ).then(({ data: { text } }) => {
-        textElement.textContent = text;
-        checkTextAgainstArrays(text);
-    });
-}
-
-// Функция для проверки текста против массивов с названиями улиц
-function checkTextAgainstArrays(text) {
-    let found = false;
-    for (const [arrayName, streets] of Object.entries(arrays)) {
-        for (const street of streets) {
-            if (text.includes(street)) {
-                arrayNameElement.textContent = arrayName;
-                found = true;
-                break;
-            }
-        }
-        if (found) break;
+    if (results.length > 0) {
+        results.forEach(street => {
+            const element = document.createElement('div');
+            element.innerHTML = `${street.name} <span class="group"> ${street.group}</span>`; // Использование класса для выделения группы
+            resultsContainer.appendChild(element);
+        });
+    } else {
+        resultsContainer.textContent = 'No matches found.';
     }
-
-    if (!found) arrayNameElement.textContent = "Не найдено";
 }
